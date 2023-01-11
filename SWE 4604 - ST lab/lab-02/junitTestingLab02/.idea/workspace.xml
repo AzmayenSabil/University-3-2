@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cb8ca8ff-0d10-432c-a807-c63258e5512d" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KAAppFFtMm09tKz29InZktXnHT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
+    "last_opened_file_path": "/Users/azmayensabil/Documents/GitHub/University-3-2/SWE 4604 - ST lab/lab-02/junitTestingLab02"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="testLab" />
+    </key>
+  </component>
+  <component name="RunManager" selected="TestNG.LabTaskTest.inRangeException">
+    <configuration name="LabTaskTest.checkNegativeNumber" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="junitTestingLab02" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testLab.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testLab" />
+      <option name="MAIN_CLASS_NAME" value="testLab.LabTaskTest" />
+      <option name="METHOD_NAME" value="checkNegativeNumber" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LabTaskTest.checkPrime" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="junitTestingLab02" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testLab.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testLab" />
+      <option name="MAIN_CLASS_NAME" value="testLab.LabTaskTest" />
+      <option name="METHOD_NAME" value="checkPrime" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LabTaskTest.inRangeException" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="junitTestingLab02" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testLab.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testLab" />
+      <option name="MAIN_CLASS_NAME" value="testLab.LabTaskTest" />
+      <option name="METHOD_NAME" value="inRangeException" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LabTaskTest.outOfRangeException" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="junitTestingLab02" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testLab.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testLab" />
+      <option name="MAIN_CLASS_NAME" value="testLab.LabTaskTest" />
+      <option name="METHOD_NAME" value="outOfRangeException" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LabTaskTest.testUsernameIsNull" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="junitTestingLab02" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testLab.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="testLab" />
+      <option name="MAIN_CLASS_NAME" value="testLab.LabTaskTest" />
+      <option name="METHOD_NAME" value="testUsernameIsNull" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="TestNG.LabTaskTest.inRangeException" />
+        <item itemvalue="TestNG.LabTaskTest.outOfRangeException" />
+        <item itemvalue="TestNG.LabTaskTest.testUsernameIsNull" />
+        <item itemvalue="TestNG.LabTaskTest.checkNegativeNumber" />
+        <item itemvalue="TestNG.LabTaskTest.checkPrime" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cb8ca8ff-0d10-432c-a807-c63258e5512d" name="Changes" comment="" />
+      <created>1673407199414</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1673407199414</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
