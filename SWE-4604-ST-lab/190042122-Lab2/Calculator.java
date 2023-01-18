@@ -1,4 +1,6 @@
-class Calculator implements ICalculator {
+package Main;
+
+public class Calculator implements ICalculator {
     double num1;
     double num2;
 

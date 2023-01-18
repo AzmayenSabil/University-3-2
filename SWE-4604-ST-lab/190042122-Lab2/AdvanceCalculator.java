@@ -1,4 +1,6 @@
-class AdvanceCalculator extends Calculator {
+package Main;
+
+public class AdvanceCalculator extends Calculator {
 
     public AdvanceCalculator(double num1, double num2) {
         super(num1, num2);

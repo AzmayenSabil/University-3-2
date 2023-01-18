@@ -1,3 +1,5 @@
+package Main;
+
 public class Conversion {
     public double feetToMeters(double feet) {
         return feet * 0.3048;

@@ -1,3 +1,5 @@
+package Main;
+
 public class Trigonometry {
     public double sine(double angle) {
         return Math.sin(angle);

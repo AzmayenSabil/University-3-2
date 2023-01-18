@@ -1,8 +1,14 @@
+package Main;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class History {
-    private List<String> history = new ArrayList<>();
+    public List<String> history = new ArrayList<>();
+
+    public int getSize(){
+        return history.size();
+    }
 
     public void addCalculation(String calculation) {
         history.add(calculation);
