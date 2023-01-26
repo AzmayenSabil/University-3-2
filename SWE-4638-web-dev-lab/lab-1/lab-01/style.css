@@ -1,0 +1,52 @@
+.menu{
+    display: flex;
+    background-color: whitesmoke;
+}
+
+.links{
+    list-style-type: none;
+    margin-left: 45%;
+}
+
+.links a{
+    margin-left: 50px;
+    
+}
+
+.menu h3{
+    margin-top: 10px;
+    margin-left: 5%;
+    padding-top: 0;
+}
+
+.home {
+    display: flex;
+    justify-content: space-between;
+}
+
+.home h3{
+    margin-top: 10px;
+    margin-left: 5%;
+    padding-top: 0;
+}
+
+.content{
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.copyright{
+    text-align: center;
+    background-color: aquamarine;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.table{
+    display: block;
+}
+
+table, th, td {
+    border: 1px solid;
+}

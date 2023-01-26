@@ -1,0 +1,180 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.menu{
+    display: flex;
+    background-color: black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.links{
+    /* list-style-type: none; */
+    padding-top: 15px;
+    margin-left: 50%;
+}
+
+.links a{
+    margin-left: 50px;
+    text-decoration: none;
+    color: white;  
+}
+
+.links a:hover{
+    color: royalblue; 
+    border: 1px solid white;
+    border-radius: 10%;
+    transition: .1s;
+    padding: 5px;
+}
+
+.menu h3{
+    margin-top: 10px;
+    margin-left: 5%;
+    padding-top: 0;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.home {
+    margin: auto;
+    /* width: 100%; */
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.home h3{
+    /* margin: 10px; */
+    /* margin-left: 50%; */
+    padding-top: 0;
+    text-align: center;
+}
+
+.content{
+    text-align: center;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.copyright{
+    text-align: center;
+    /* position: fixed; */
+    padding: 10px 10px 0px 10px;
+    bottom: 0;
+    width: 100%;
+    /* Height of the footer*/
+    height: 40px;
+    background-color: black;
+}
+
+.products{
+    margin: 5px;
+    /* border: 5px solid black;
+    border-radius: 5px; */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: small;
+    background-color: aliceblue;
+}
+
+.copyright h4{
+    color: white;
+}
+
+.shirt-title{
+    margin: 10px;
+}
+
+.shirts{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shirts .product {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+    border-color: azure;
+    background-color:lavender;
+    overflow: hidden;
+}
+
+.shirts .product h6{
+    width: -moz-fit-content;
+    width: fit-content;
+    font-weight: 200;
+}
+
+/* On mouse-over, add a deeper shadow */
+.shirts .product:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0);
+}
+
+.shirts .product img:hover{
+    transform: scale(1.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: .5s;
+    z-index: 1;
+    padding-top: 20px;
+    padding-left: 40px;  
+}
+
+.shirts .product:hover .hide{
+  display: none; 
+  z-index: -1;
+}
+
+/* Add some padding inside the card container */
+.shirts .product {
+    padding: 2px 16px;
+}
+
+.cap-title{
+    margin: 10px;
+}
+
+.caps{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.caps .product {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+    border-color: azure;
+    background-color:white;
+    overflow: hidden;
+}
+  
+/* On mouse-over, add a deeper shadow */
+.caps .product:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.caps .product img:hover{
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+    transition: .3s;
+    z-index: 1;
+    padding-top: 40px;
+    padding-left: 10px;  
+}
+
+.caps .product:hover .hide{
+    display: none;
+    z-index: -1;
+}
+
+/* Add some padding inside the card container */
+.caps .product {
+    padding: 2px 16px;
+}
