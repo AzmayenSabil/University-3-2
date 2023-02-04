@@ -16,7 +16,7 @@
 In search.py, you will implement generic search algorithms which are called by
 Pacman agents (in searchAgents.py).
 """
-
+import heapq
 import util
 
 class SearchProblem:
@@ -90,11 +90,9 @@ def depthFirstSearch(problem):
     # print("Start:", problem.getStartState())
     # print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     # print("Start's successors:", problem.getSuccessors(problem.getStartState()))
-
     stack = util.Stack()
     visited = set()
 
-    #print("Start state : ", problem.getStartState())
     stack.push((problem.getStartState(), []))
 
     iteration = 0
@@ -110,7 +108,6 @@ def depthFirstSearch(problem):
 
         if state not in visited:
             visited.add(state)
-
         #print("successor : ", iteration, problem.getSuccessors(state))
 
         for nextState, action, _ in problem.getSuccessors(state):
@@ -130,36 +127,49 @@ def breadthFirstSearch(problem):
     queue = util.Queue()
     visited = set()
 
-    # print("Start state : ", problem.getStartState())
     queue.push((problem.getStartState(), []))
 
-    iteration = 0
-
     while not queue.isEmpty():
-        # print("Visited : ", iteration, visited)
-        iteration = iteration + 1
-
         state, actions = queue.pop()
 
         if problem.isGoalState(state):
             return actions
 
-        visited.add(state)
+        if state not in visited:
+            visited.add(state)
 
-        for nextState, action, _ in problem.getSuccessors(state):
-            if nextState not in visited:
-                queue.append((nextState, actions + [action]))
+            for nextState, action, _ in problem.getSuccessors(state):
+                if nextState not in visited:
+                    queue.push((nextState, actions + [action]))
 
-    # print("Expanded states", expanded_states)
-
-    return visited
+    return []
 
     #util.raiseNotDefined()
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    pq = util.PriorityQueue()
+    visited = set()
+
+    pq.push((problem.getStartState(), []), 0)
+
+    while not pq.isEmpty():
+        state, actions = pq.pop()
+
+        if problem.isGoalState(state):
+            return actions
+
+        if state not in visited:
+            visited.add(state)
+
+            for nextState, action, cost in problem.getSuccessors(state):
+                if nextState not in visited:
+                    totalCost = problem.getCostOfActions(actions + [action])
+                    pq.push((nextState, actions + [action]), totalCost)
+
+    return []
+    #util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
     """
