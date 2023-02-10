@@ -303,7 +303,8 @@ class CornersProblem(search.SearchProblem):
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-
+        pos, visited_corners = state
+        return all(corner in visited_corners for corner in self.corners)
         #util.raiseNotDefined()
 
     def getSuccessors(self, state):
@@ -316,21 +317,35 @@ class CornersProblem(search.SearchProblem):
             state, 'action' is the action required to get there, and 'stepCost'
             is the incremental cost of expanding to that successor
         """
-
+        pos, visited_corners = state
         successors = []
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
-            # Add a successor state to the successor list if the action is legal
-            # Here's a code snippet for figuring out whether a new position hits a wall:
-            #   x,y = currentPosition
-            #   dx, dy = Actions().directionToVector(action)
-            #   nextx, nexty = int(x + dx), int(y + dy)
-            #   hitsWall = self.walls[nextx][nexty]
-
-            "*** YOUR CODE HERE ***"
-            
-
-        self._expanded += 1 # DO NOT CHANGE
+            x, y = pos
+            dx, dy = Actions.directionToVector(action)
+            nextx, nexty = int(x + dx), int(y + dy)
+            if not self.walls[nextx][nexty]:
+                next_pos = (nextx, nexty)
+                next_visited_corners = visited_corners[:]
+                if next_pos in self.corners and next_pos not in next_visited_corners:
+                    next_visited_corners.append(next_pos)
+                successors.append(((next_pos, next_visited_corners), action, 1))
+        self._expanded += 1
         return successors
+
+        # successors = []
+        # for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
+        #     # Add a successor state to the successor list if the action is legal
+        #     # Here's a code snippet for figuring out whether a new position hits a wall:
+        #     #   x,y = currentPosition
+        #     #   dx, dy = Actions().directionToVector(action)
+        #     #   nextx, nexty = int(x + dx), int(y + dy)
+        #     #   hitsWall = self.walls[nextx][nexty]
+        #
+        #     "*** YOUR CODE HERE ***"
+        #
+        #
+        # self._expanded += 1 # DO NOT CHANGE
+        # return successors
 
     def getCostOfActions(self, actions):
         """
@@ -338,12 +353,19 @@ class CornersProblem(search.SearchProblem):
         include an illegal move, return 999999.  This is implemented for you.
         """
         if actions == None: return 999999
-        x,y= self.startingPosition
+        x, y = self.startingPosition
         for action in actions:
             dx, dy = Actions.directionToVector(action)
             x, y = int(x + dx), int(y + dy)
             if self.walls[x][y]: return 999999
         return len(actions)
+        # if actions == None: return 999999
+        # x,y= self.startingPosition
+        # for action in actions:
+        #     dx, dy = Actions.directionToVector(action)
+        #     x, y = int(x + dx), int(y + dy)
+        #     if self.walls[x][y]: return 999999
+        # return len(actions)
 
 
 def cornersHeuristic(state, problem):
@@ -363,7 +385,21 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    # return 0 # Default to trivial solution
+    xy = state[0]
+    visitedCorners = state[1]
+    # Finding out the not visited corners
+    unvisitedCorners = []
+    for corner in corners:
+        if not (corner in visitedCorners):
+            unvisitedCorners.append(corner)
+
+    """ A heuristic could be maximum of Manhattan distance between current
+        position and all unvisited corners."""
+    heuristicvalue = [0]
+    for corner in unvisitedCorners:
+        heuristicvalue.append(util.manhattanDistance(xy, corner))
+    return max(heuristicvalue)
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
