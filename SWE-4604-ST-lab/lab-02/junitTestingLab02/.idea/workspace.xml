@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cb8ca8ff-0d10-432c-a807-c63258e5512d" name="Changes" comment="" />
+    <list default="true" id="cb8ca8ff-0d10-432c-a807-c63258e5512d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../SWE-4601-Software-Design/lecture-4/evo-db-design.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/../../../SWE-4601-Software-Design/lecture-4/evo-db-design.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../SWE-4601-Software-Design/lecture-5.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +41,7 @@
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "create.test.in.the.same.root": "true",
-    "last_opened_file_path": "/Users/azmayensabil/Documents/GitHub/University-3-2/SWE 4604 - ST lab/lab-02/junitTestingLab02"
+    "last_opened_file_path": "/Users/azmayensabil/Documents/GitHub/University-3-2/SWE-4604-ST-lab/lab-02/junitTestingLab02"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -48,7 +52,7 @@
       <recent name="testLab" />
     </key>
   </component>
-  <component name="RunManager" selected="TestNG.LabTaskTest.inRangeException">
+  <component name="RunManager">
     <configuration name="LabTaskTest.checkNegativeNumber" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="junitTestingLab02" />
       <extension name="coverage">
@@ -139,15 +143,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="TestNG.LabTaskTest.inRangeException" />
-        <item itemvalue="TestNG.LabTaskTest.outOfRangeException" />
-        <item itemvalue="TestNG.LabTaskTest.testUsernameIsNull" />
-        <item itemvalue="TestNG.LabTaskTest.checkNegativeNumber" />
-        <item itemvalue="TestNG.LabTaskTest.checkPrime" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
