@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 //@EnableEurekaClient
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 
 public class EmployeeServiceApplication {
 
