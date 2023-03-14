@@ -1,36 +1,30 @@
-.model small
-.stack 100h
+.MODEL SMALL
+.STACK 100h
 
-.data
-    msg db 'The product of the first 6 terms: $'
-
-.code
-    main proc
-        mov ax, @data
-        mov ds, ax
-
-        ; initialize variables
-        mov cx, 6           ; number of terms
-        mov al, 1           ; initial value of first term
-        mov bh, 1           ; initial value of product
-
-        ; loop to calculate product
-        loop_start:
-            mul bh          ; multiply current term with product
-            add al, 2       ; increment term by 2
-            dec cx          ; decrement loop counter
-            jnz loop_start  ; loop until cx = 0
-
-        ; display the result
-        mov ah, 9
-        lea dx, msg
-        int 21h
-
-        mov ah, 2
-        mov dl, bh
-        int 21h
-
-        mov ax, 4c00h
-        int 21h
-    main endp
-end main
+.DATA
+  start db 1d   ; start of sequence     
+  ans dw 0d ; answer will be stored here
+  
+.CODE
+ MAIN PROC
+                     
+   MOV AX,@DATA ; load the data segment 
+   MOV DS,AX
+   
+   MOV CX,6   ; counter == 6        
+   MOV AX,1d  ; It will be multiplied        
+      
+   LOOP_START:
+    MUL start ; AX = AX*START    
+    ADD start,2 ; start = start + 2                    
+    MOV ans,AX  ; AX will be stored in ans
+    
+    LOOP LOOP_START ; loop until CX == 0
+   
+   MOV DX,ans   
+   
+   MOV AH, 4Ch     
+   INT 21h
+   
+   MAIN ENDP
+ END MAIN
