@@ -1,75 +1,76 @@
-import express from 'express';
-import cors from 'cors';
-import morgan from 'morgan';
-import connect from './connect.js';
-// import router from './router/route.js';
-
-import Book from './models/book.js'
-
+const express = require('express');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 
-/** middlewares */
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(morgan('tiny'));
-app.disable('x-powered-by'); // less hackers know about our stack
 
-
-// const port = 8080;
 const port = 8080;
 
-app.get("/bookList",(req,res)=>{
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'samyang@1234',
+  database: 'lms'
+});
 
-})
+app.use(express.json());
 
-
-app.post("/insert",async (req,res)=>{
-
-  console.log(typeof req.body)
-
-  const name = req.body.name
-  const author = req.body.author
-  const genre = req.body.genre
-
-  const book = new Book({
-    name,
-    author,
-    genre
+// Create a new book
+app.post('/books', (req, res) => {
+  console.log(req.body);
+  const { name, author, genre } = req.body;
+  connection.query('INSERT INTO books (name, author, genre) VALUES (?, ?, ?)', [name, author, genre], (error, results, fields) => {
+    if (error) throw error;
+    res.json({ id: results.insertId });
   });
+});
 
-  console.log(book)
-  // return save result as a response
-  book.save()
-      .then(result => res.status(201).send({ msg: "book Register Successfully"}))
-      .catch(error => res.status(500).send({error}))
+// Retrieve a book by id
+// app.get('/books/:id', (req, res) => {
+//   console.log(id);
+//   const { id } = req.params;
+//   connection.query('SELECT * FROM books WHERE id = ?', [id], (error, results, fields) => {
+//     if (error) throw error;
+//     res.json(results[0]);
+//   });
+// });
 
-})
+// Update a book by id
+app.put('/books/:id', (req, res) => {
+  console.log("update ",req.params.id)
+  const { id } = req.params;
+  const { name, author, genre } = req.body;
+  connection.query('UPDATE books SET name = ?, author = ?, genre = ? WHERE id = ?', [name, author, genre, id], (error, results, fields) => {
+    if (error) throw error;
+    res.json({ message: `Book with id ${id} has been updated` });
+  });
+});
 
-app.delete("/delete/:name",(req,res)=>{
+// Delete a book by id
+app.delete('/books/:id', (req, res) => {
+  console.log("delete ",req.params.id)
+  const { id } = req.params;
+  connection.query('DELETE FROM books WHERE id = ?', [id], (error, results, fields) => {
+    if (error) throw error;
+    res.json({ message: `Book with id ${id} has been deleted` });
+  });
+});
 
-  const name = req.params.name
+// Retrieve all books with pagination
+app.get('/books', (req, res) => {
+  //console.log("get all books")
+  // const { page = 1, limit = 10 } = req.query;
+  // const offset = (page - 1) * limit;
+  connection.query('SELECT * FROM books', (error, results, fields) => {
+    if (error) throw error;
+    res.json(results);
+  });
+});
 
-
-})
-
-app.put("/update",(req,res)=>{
-
-  const name = req.body.name
-  const author = req.body.author
-  const genre = req.body.genre
- 
-
-})
-
-/** start server only when we have valid connection */
-connect().then(() => {
-    try {
-        app.listen(port, () => {
-            console.log(`Server connected to http://localhost:${port}`);
-        })
-    } catch (error) {
-        console.log('Cannot connect to the server')
-    }
-}).catch(error => {
-    console.log(error);
-})
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
+});

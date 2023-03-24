@@ -1,173 +1,217 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import './App.css';
 
-function BookForm() {
-    const [name, setName] = useState('');
-    const [author, setAuthor] = useState('');
-    const [genre, setGenre] = useState('');
-    const [errors, setErrors] = useState({});
+import Navbar from './components/Navigation/Navbar.js'
+import Footer from './components/Footer/Footer.js'
+import Search from './components/Search/Search.js'
 
-    const [newBook, setNewBook] = useState({ title: '', author: '', genre: '' });
-    const [selectedBook, setSelectedBook] = useState(null);
+const App = () => {
+  const [name, setName] = useState('');
+  const [author, setAuthor] = useState('');
+  const [genre, setGenre] = useState('');
+  const [books, setBooks] = useState([
+  ]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [booksPerPage, setBooksPerPage] = useState(5);
 
-    const dummyData = [
-      { id: 1, title: 'To Kill a Mockingbird', author: 'Harper Lee', genre: 'Fiction' },
-      { id: 2, title: 'The Catcher in the Rye', author: 'J.D. Salinger', genre: 'Novel' },
-      { id: 3, title: '1984', author: 'George Orwell', genre: 'Fiction' },
-      { id: 4, title: 'Pride and Prejudice', author: 'Jane Austen', genre: 'Novel' },
-      { id: 5, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', genre: 'Novel' },
-    ];
+  const [formData, setFormData] = useState({
+    name: '',
+    author: '',
+    genre: ''
+  });
+  const [editId, setEditId] = useState(null);
 
-    const [books, setBooks] = useState(dummyData);
+  // Fetch all books from the backend on initial render
+  useEffect(() => {
+    axios.get('http://localhost:8080/books')
+      .then(res => {
+        setBooks(res.data);
+        //console.log("frontend data", res.data)
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [books]);
 
-    // define error messages for each input
-    const errorMessages = {
-      name: 'Please enter a valid name',
-      author: 'Please enter first and last names',
-      genre: 'Please select a genre'
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newBook = {
+      name,
+      author,
+      genre
+      // id: Math.random().toString(36).substring(7), // Generate a random ID for the book
     };
+    axios.post('http://localhost:8080/books', newBook)
+      .then(res => {
+        setBooks([...books, res.data]);
+        setName('');
+        setAuthor('');
+        setGenre('');
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const handleDelete = (bookId) => {
+    axios.delete(`http://localhost:8080/books/${bookId}`)
+      .then(res => {
+        console.log(res.data);
+        const updatedBooks = res.data.filter((book) => book.id !== bookId);
+        setBooks(updatedBooks);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+
+  const handleUpdate = (bookId) => {
+    const bookToEdit = books.find(book => book.id === bookId);
+    setName(bookToEdit.name);
+    setAuthor(bookToEdit.author);
+    setGenre(bookToEdit.genre);
+
+    setFormData({
+      name: bookToEdit.name,
+      author: bookToEdit.author,
+      genre: bookToEdit.genre
+    });
     
-    // define a function to validate the form inputs
-    const validateInputs = () => {
-      let errors = {};
-      // validate name
-      if (!/^[a-zA-Z ]+$/.test(name)) {
-        errors.name = errorMessages.name;
-      }
-      // validate author
-      const authorNameArray = author.split(' ');
-      if (authorNameArray.length < 2) {
-        errors.author = errorMessages.author;
-      }
-      // validate genre
-      if (!['Fiction', 'Novel', 'Non-fiction'].includes(genre)) {
-        errors.genre = errorMessages.genre;
-      }
-      setErrors(errors);
-      return Object.keys(errors).length === 0;
-    };
-    
-    // define a function to handle form submission
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      if (validateInputs()) {
-        console.log('Form submitted successfully')
-        // call an API or other function to submit the form data
-        setNewBook({name, author, genre})
-        console.log(newBook)
-        
-        
-        axios.post('http://localhost:8080/insert', JSON.stringify(newBook))
-        .then((response) => {
-          setBooks([...books, response.data]);
-          setNewBook({ title: '', author: '', genre: '' });
-        })
-        .catch((error) => console.log(error));
-      } else {
-        console.log('Form validation errors:', errors);
-      }
+    console.log("Book to edit", bookToEdit);
 
-    };
+    axios.put(`http://localhost:8080/books/${bookId}`, bookToEdit)
+      .then(res => {
+        const updatedBooks = books.filter((book) => book.id == bookId);
+        setBooks(updatedBooks);
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
-  // useEffect(() => {
-  //   axios.get('')
-  //     .then((response) => setBooks(response.data))
-  //     .catch((error) => console.log(error));
-  // }, []);
+      handleDelete(bookId)
+  };
 
-  // const handleDelete = (id) => {
-  //   axios.delete(`/api/books/${id}`)
-  //     .then(() => {
-  //       const updatedBooks = books.filter((book) => book._id !== id);
-  //       setBooks(updatedBooks);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
 
-  // const handleUpdate = () => {
-  //   axios.put(`/api/books/${selectedBook._id}`, selectedBook)
-  //     .then(() => {
-  //       const updatedBooks = books.map((book) => {
-  //         if (book._id === selectedBook._id) {
-  //           return selectedBook;
-  //         }
-  //         return book;
-  //       });
-  //       setBooks(updatedBooks);
-  //       setSelectedBook(null);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
+  const handlePageClick = (event) => {
+    setCurrentPage(Number(event.target.id));
+  };
 
-  // const handleSelect = (book) => {
-  //   setSelectedBook(book);
-  //   setNewBook(book);
-  // };
+  const indexOfLastBook = currentPage * booksPerPage;
+  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
 
-    
-    return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input
-              type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
-            {errors.name && <div className="error">{errors.name}</div>}
-          </label>
-          <br></br>
-          <label>
-            Author:
-            <input
-              type="text"
-              value={author}
-              onChange={(event) => setAuthor(event.target.value)}
-            />
-            {errors.author && <div className="error">{errors.author}</div>}
-          </label>
-          <br></br>
-          <label>
-            Genre:
-            <select value={genre} onChange={(event) => setGenre(event.target.value)}>
-              <option value="">Select a genre</option>
-              <option value="Fiction">Fiction</option>
-              <option value="Novel">Novel</option>
-              <option value="Non-fiction">Non-fiction</option>
-            </select>
-            {errors.genre && <div className="error">{errors.genre}</div>}
-          </label>
-          <button type="submit">Submit</button>
-        </form>
-        <br></br>
-        <br></br>
-        <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {books.map((book) => (
-            <tr key={book.id}>
-              <td>{book.title}</td>
-              <td>{book.author}</td>
-              <td>{book.genre}</td>
-              <td>
-                {/* <button onClick={() => handleDelete(book.id)}>Delete</button> */}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    );
+  const renderBooks = currentBooks.map((book) => (
+    <tr key={book.id}>
+      <td>{book.name}</td>
+      <td>{book.author}</td>
+      <td>{book.genre}</td>
+      <td>
+        <button onClick={() => handleDelete(book.id)}>Delete</button>
+      </td>
+      <td>
+        <button onClick={() => handleUpdate(book.id)}>Update</button>
+      </td>
+    </tr>
+  ));
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(books.length / booksPerPage); i++) {
+    pageNumbers.push(i);
   }
-  
-  export default BookForm;
-  
+
+  const renderPageNumbers = pageNumbers.map((number) => (
+    <li
+      key={number}
+      id={number}
+      onClick={handlePageClick}
+      className={currentPage === number ? "active" : null}
+    >
+      {number}
+    </li>
+  ));
+
+  return (
+    <div>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+            <Route exact path="/search" element={<Search />} />
+        </Routes>
+      </BrowserRouter>
+      <div  className='main'>
+        <form onSubmit={handleSubmit} className="form">
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            required
+            pattern="[A-Za-z]+"
+          />
+
+          <label htmlFor="author">Author:</label>
+          <input
+            type="text"
+            id="author"
+            value={author}
+            onChange={(event) => setAuthor(event.target.value)}
+            required
+            pattern="[A-Za-z]+\s[A-Za-z]+"
+          />
+
+          <label htmlFor="genre">Genre:</label>
+          <select id="genre" value={genre} onChange={(event) => setGenre(event.target.value)} required>
+            <option value="">Select a genre</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Novel">Novel</option>
+            <option value="Non-fiction">Non-fiction</option>
+          </select>
+
+          <button type="submit">Add book</button>
+        </form>
+
+        <div className='table'>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Actions 1</th>
+                <th>Actions 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {books.map((book) => (
+                <tr key={book.id}>
+                  <td>{book.name}</td>
+                  <td>{book.author}</td>
+                  <td>{book.genre}</td>
+                  <td>
+                    <button onClick={() => handleDelete(book.id)}>Delete</button>
+                  </td>
+                  <td>
+                    <button onClick={() => handleUpdate(book.id)}>Update</button>
+                  </td>
+                </tr>
+              ))} */}
+              {renderBooks}
+            </tbody>
+          </table>
+          <div>
+            {renderPageNumbers}
+          </div>
+        </div>
+      </div>
+      <Footer></Footer>
+    </div>
+    
+  );
+};
+
+export default App;
