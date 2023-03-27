@@ -2,7 +2,7 @@
 .STACK 100h
 
 .DATA
-  start db 1d   ; start of sequence     
+  start dw 1d   ; start of sequence     
   ans dw 0d ; answer will be stored here
   
 .CODE
