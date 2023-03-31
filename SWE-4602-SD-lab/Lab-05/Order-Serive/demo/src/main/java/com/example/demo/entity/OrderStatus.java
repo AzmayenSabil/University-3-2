@@ -12,6 +12,7 @@ import lombok.ToString;
 public class OrderStatus {
 
     private Order order;
+    private int qty;
     private String status;
     private String message;
 }

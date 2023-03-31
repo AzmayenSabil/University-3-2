@@ -19,7 +19,8 @@ public class OrderController {
     @PostMapping("/{restaurantName}")
     public String bookOrder(@RequestBody Order order, @PathVariable String restaurantName ) {
         order.setOrderId(UUID.randomUUID().toString());
-        OrderStatus orderStatus = new OrderStatus(order, "PROCESS", "Order Successfully Placed to "+ restaurantName);
+        System.out.println(order.getQty());
+        OrderStatus orderStatus = new OrderStatus(order, order.getQty(), "PROCESS", "Order Successfully Placed to "+ restaurantName);
 
         rabbitTemplate.convertAndSend(Constants.EXCHANGE,Constants.ROUTING_KEY, orderStatus);
         return "success!!";

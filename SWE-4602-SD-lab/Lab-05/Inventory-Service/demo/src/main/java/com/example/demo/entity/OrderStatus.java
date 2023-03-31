@@ -5,15 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data
 @AllArgsConstructor
+@Data
 @NoArgsConstructor
 @ToString
-public class Inventory {
+public class OrderStatus {
 
-    private String inventoryId;
-    private String name;
-    private double storage;
-    private double available;
-
+    private Order order;
+    private String status;
+    private String message;
 }
