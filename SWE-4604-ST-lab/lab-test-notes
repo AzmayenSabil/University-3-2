@@ -1,0 +1,70 @@
+TEST CASE REPORT
+
+-- 	test case id, ->
+	test case summary, -> check whether user.... 
+	related requiremnets, -> ki lagbe test chalate ex: login
+	test procedure, -> process 
+	test data, -> test data
+	priority, -> priority 
+	expected result, 
+	actual result, 
+	status, -> executed or not executed
+	remarks, -> passed or failed
+	test case author, 
+	executed by,
+	test environment,
+	frequency -> kotobar hoise
+
+
+BUG REPORT 
+
+--	Bug id
+	Module -> jei module a problem ex: a user can not send messages
+	related requirement -> ja kora lagbe module ta activate korte
+	test case id 
+	reproduction path -> jevabe reproduce korbo
+	test data 
+	expected result 
+	actual result
+	severity -> high, medium, low
+	status -> bug er diffeent status
+	test environment
+	test case author
+	executed by
+	bug reported by
+	test frequency 
+	assigned to - jake solve korte dise
+
+
+
+JUNIT TESTNG
+
+--	@Test
+	@BeforeAll
+	@BeforeEach
+	@After
+	@AfterAll
+
+	assertEquals
+	assertTrue
+	assertSame 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
