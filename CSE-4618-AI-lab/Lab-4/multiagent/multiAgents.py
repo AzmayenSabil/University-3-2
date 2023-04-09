@@ -75,7 +75,15 @@ class ReflexAgent(Agent):
 
         "*** YOUR CODE HERE ***"
         # Get the current state's score
-        score = successorGameState.getScore()
+        if successorGameState.isWin():
+            return 999999
+
+        """ Manhattan distance to the available foods from the successor state """
+        foodList = newFood.asList()
+        from util import manhattanDistance
+        foodDistance = [0]
+        for pos in foodList:
+            foodDistance.append(manhattanDistance(newPos, pos))
 
         """ Manhattan distance to each ghost in the game from successor state"""
         ghostPos = []
@@ -95,57 +103,46 @@ class ReflexAgent(Agent):
         for pos in ghostPosCurrent:
             ghostDistanceCurrent.append(manhattanDistance(newPos, pos))
 
-        # Find the closest food
-        foodDistances = [manhattanDistance(newPos, foodPos) for foodPos in newFood.asList()]
-        if foodDistances:
-            closestFoodDistance = min(foodDistances)
-            # Add reciprocal of distance to the closest food to score
-            score += 10.0 / closestFoodDistance
-
-        # Consider the remaining time that ghosts are scared
-        totalScaredTime = sum(newScaredTimes)
-        # If there are any scared ghosts, add a weight proportional to the total scared time to the score
-        if totalScaredTime > 0:
-            score += 200.0 / totalScaredTime
-
-        # Subtract the distance to the closest ghost (weighted to avoid them) from the score
-        ghostDistances = [manhattanDistance(newPos, ghost.getPosition()) for ghost in newGhostStates]
-        if ghostDistances:
-            closestGhostDistance = min(ghostDistances)
-            if closestGhostDistance <= 2:
-                score -= 1000.0 / closestGhostDistance
-
-        # If ghosts are scared lesser distance to ghosts is better.
-        if sum(newScaredTimes) > 0:
-            if min(ghostDistanceCurrent) < min(ghostDistance):
-                score += 10 * ghostDistances
-            else:
-                score -= 1000 / ghostDistanceCurrent
-        # If ghosts are not scared greater distance to ghosts is better.
-        else:
-            if min(ghostDistanceCurrent) < min(ghostDistance):
-                score -= 10
-            else:
-                score += 20
-
+        score = 0
         # Get Number of food available in successor state
-        numberOfFoodLeft = len(newFood.asList())
+        numberOfFoodLeft = len(foodList)
         # Get Number of food available in current state
         numberOfFoodLeftCurrent = len(currentGameState.getFood().asList())
         # Get Number of Power Pellets available in successor state
         numberofPowerPellets = len(successorGameState.getCapsules())
+        # Get state of ghosts in successor state
+        sumScaredTimes = sum(newScaredTimes)
+
+        # Relative Score
+        score += successorGameState.getScore() - currentGameState.getScore()
+        if action == Directions.STOP:
+            # Penalty for stop
+            score -= 10
 
         # Add Score if pacman eats power pellet in next state.
         if newPos in currentGameState.getCapsules():
-            score += 10 * numberofPowerPellets
-
+            score += 150 * numberofPowerPellets
+        # Add score if there are lesser number of food available in successor state.
         if numberOfFoodLeft < numberOfFoodLeftCurrent:
-            score += 10
+            score += 200
 
+        # For each food left subtract 10 score.
+        score -= 10 * numberOfFoodLeft
 
-        # Return the final score
+        # If ghosts are scared lesser distance to ghosts is better.
+        if sumScaredTimes > 0:
+            if min(ghostDistanceCurrent) < min(ghostDistance):
+                score += 200
+            else:
+                score -= 100
+        # If ghosts are not scared greater distance to ghosts is better.
+        else:
+            if min(ghostDistanceCurrent) < min(ghostDistance):
+                score -= 100
+            else:
+                score += 200
+
         return score
-        # Get the current state's score
 
         #return successorGameState.getScore()
 
@@ -208,7 +205,48 @@ class MinimaxAgent(MultiAgentSearchAgent):
         Returns whether or not the game state is a losing state
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        numberOfGhosts = gameState.getNumAgents() - 1
+
+        # Used only for pacman agent hence agentindex is always 0.
+        def maxLevel(gameState, depth):
+            currDepth = depth + 1
+            if gameState.isWin() or gameState.isLose() or currDepth == self.depth:  # Terminal Test
+                return self.evaluationFunction(gameState)
+            maxvalue = -999999
+            actions = gameState.getLegalActions(0)
+            for action in actions:
+                successor = gameState.generateSuccessor(0, action)
+                maxvalue = max(maxvalue, minLevel(successor, currDepth, 1))
+            return maxvalue
+
+        # For all ghosts.
+        def minLevel(gameState, depth, agentIndex):
+            minvalue = 999999
+            if gameState.isWin() or gameState.isLose():  # Terminal Test
+                return self.evaluationFunction(gameState)
+            actions = gameState.getLegalActions(agentIndex)
+            for action in actions:
+                successor = gameState.generateSuccessor(agentIndex, action)
+                if agentIndex == (gameState.getNumAgents() - 1):
+                    minvalue = min(minvalue, maxLevel(successor, depth))
+                else:
+                    minvalue = min(minvalue, minLevel(successor, depth, agentIndex + 1))
+            return minvalue
+
+        # Root level action.
+        actions = gameState.getLegalActions(0)
+        currentScore = -999999
+        returnAction = ''
+        for action in actions:
+            nextState = gameState.generateSuccessor(0, action)
+            # Next level is a min level. Hence calling min for successors of the root.
+            score = minLevel(nextState, 0, 1)
+            # Choosing the action which is Maximum of the successors.
+            if score > currentScore:
+                returnAction = action
+                currentScore = score
+        return returnAction
+        #util.raiseNotDefined()
 
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
