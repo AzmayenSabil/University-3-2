@@ -1,0 +1,21 @@
+ok so now we are in the present
+
+In this section, we are going to see the shift from generic to domain-specific software architectures. This has led us to various architectures including microservice architectures. Let's take a closer look at these architecture.
+
+Microservice is a popular architecture that use services that are independently deployable. The aim is to overcome the scalability issue of generic architectural design. Microservices are built around business capabilities and take a full-stack implementation for that business area, including individual data stores.
+
+as you can see, Different companies like netflix, amazon, spotify use microservice architecture.
+
+Vertical decomposition in microservice architecture involves breaking down an application into separate services based on business capabilities or features. It also requires a cross-functional teams with the skills to develop and maintain each microservice independently.
+
+
+Shared nothing is a principle of microservices architecture where each service operates independently, with its own data storage and processing resources. This allows for better scalability and fault tolerance, as well as reducing dependencies between services.
+
+
+Conway's Law in Microservice Design basically means the structure of a system that reflects the communication patterns of the organization that designed it.
+
+Here on the right you can see a large team is following a monolithic architecture where a cross functional team is following microservice.
+
+Microservices sometimes break down, so we need to be prepared. The circuit breaker pattern helps by acting like a safety net around dependencies. If a dependency fails, the circuit breaker jumps in and uses cached data or defaults until it's back online.
+
+Here you can see a visual representation of a service failing and how circuit breaker is handling it.]
