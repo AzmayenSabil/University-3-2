@@ -1,0 +1,5 @@
+link-1:
+https://towardsdatascience.com/10-common-software-architectural-patterns-in-a-nutshell-a0b47a1e9013
+
+link-2:
+https://www.guru99.com/compiler-design-phases-of-compiler.html
