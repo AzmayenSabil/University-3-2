@@ -24,7 +24,7 @@ public class Main {
         test1.testHtmlForm();
 
         HtmlTableTest test2 = new HtmlTableTest();
-        //test2.testHtmlTable();
+        test2.testHtmlTable();
 
     }
 }

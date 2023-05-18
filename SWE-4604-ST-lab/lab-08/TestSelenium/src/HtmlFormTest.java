@@ -16,13 +16,13 @@ public class HtmlFormTest {
 
         driver.get("https://testpages.herokuapp.com/styled/basic-html-form-test.html");
 
-        driver.findElement(By.id("firstName")).sendKeys("John");
-        driver.findElement(By.id("lastName")).sendKeys("Doe");
+        driver.findElement(By.id("firstName")).sendKeys("Azmayen");
+        driver.findElement(By.id("lastName")).sendKeys("Sabil");
 
         driver.findElement(By.id("submitBtn")).click();
 
         String outputText = driver.findElement(By.id("outputText")).getText();
-        String expectedOutput = "Hello, John Doe!";
+        String expectedOutput = "Hello, Azmayen Sabil!";
 
         assert outputText.equals(expectedOutput) : "Output mismatch";
 

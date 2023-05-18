@@ -14,13 +14,13 @@ public class HtmlTableTest {
         option.addArguments("--remote-allow-origins=*");
         WebDriver driver = new ChromeDriver(option);
 
-        driver.get("https://testpages.herokuapp.com");
+        driver.get("https://testpages.herokuapp.com/styled/tag/dynamic-table.html");
 
-        driver.findElement(By.id("inputField")).sendKeys("Test Data");
+        driver.findElement(By.id("inputField")).sendKeys("Selenium Test Data");
         driver.findElement(By.id("refreshButton")).click();
 
         String outputText = driver.findElement(By.id("tableData")).getText();
-        String expectedOutput = "Test Data";
+        String expectedOutput = "Selenium Test Data";
         assert outputText.contains(expectedOutput) : "Output mismatch";
 
         // Close the WebDriver
